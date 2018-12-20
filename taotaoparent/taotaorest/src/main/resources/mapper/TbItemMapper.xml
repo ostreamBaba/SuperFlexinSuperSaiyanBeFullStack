@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taotao.mapper.TbItemMapper">
+  <resultMap id="BaseResultMap" type="com.taotao.pojo.TbItem">
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="article_id" jdbcType="INTEGER" property="articleId" />
+  </resultMap>
+  <insert id="insert" parameterType="com.taotao.pojo.TbItem">
+    insert into tb_item (order_id, article_id)
+    values (#{orderId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.taotao.pojo.TbItem">
+      insert into tb_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="articleId != null">
+        article_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="articleId != null">
+        #{articleId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="findByItemId" resultType="com.taotao.pojo.TbItem">
+    SELECT *
+    FROM tb_item
+    WHERE id = #{itemId}
+  </select>
+
+  <select id="getTbItemList" resultType="com.taotao.pojo.TbItem">
+    SELECT *
+    FROM tb_item
+  </select>
+
+</mapper>
